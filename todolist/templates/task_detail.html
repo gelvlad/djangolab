@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Task {{ task.name }}</h2>
+  <p>Description: {{ task.description }}</p>
+  <p>
+    State: {% if task.completed %}
+             completed
+           {% else %}
+             unfinished
+           {% endif %}
+  </p>
+  <p>Created: {{ task.date_created }}</p>
+  <p>Last modified: {{ task.date_modified }}</p>
+  <p>Due date: {{ task.due_date }}</p>
+  <p>
+    Priority: {% if task.priority == 'n' %}
+                None
+              {% elif task.priority == 'l' %}
+                Low
+              {% elif task.priority == 'm' %}
+                Medium
+              {% elif task.priority == 'h' %}
+                High
+              {% endif %}
+  </p>
+  <p>
+  Tags:
+  {% for tag in task.tags %}
+    {{ tag.name }}  
+  {% endfor %}
+  </p>
+
+  <h3>Edit task</h3>
+  <form method="post">
+    {% csrf_token %}
+      {% for field in form %}
+        <p>{{ field.label }}: {{ field }} <button type="submit" name="edit_{{ field.name }}">Edit</button></p>
+      {% endfor %}
+      <p><button type="submit" name="delete">Delete task</button></p>
+  </form>
+{% endblock %}

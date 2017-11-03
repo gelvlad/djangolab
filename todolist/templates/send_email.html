@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  Confirm your email to activate account.
+  <form method="post">
+    {% csrf_token %}
+    <p>
+    <button type="submit" name="send_email">Send another email</button>
+    </p>
+  </form>
+{% endblock %}

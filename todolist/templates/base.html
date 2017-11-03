@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div class="nav">
+  <p><a href="{% url 'lists' %}" class="">Tasklists</a></p>
+  <p><a href="{% url 'logout' %}">Logout</a></p>
+</div>
+
+<div class="container">
+     {% block content %}{% endblock %}
+</div>
+</body>
+</html>

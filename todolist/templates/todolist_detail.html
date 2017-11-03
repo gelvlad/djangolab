@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Tasklist {{ tasklist.name }}</h2>
+  <h3>Tasks:</h3>
+  <form method="post">
+  {% csrf_token %}
+  {% for task in tasks %}
+    <p><a href="task/{{ task.id }}">{{ task.name }}</a> <button type="submit" name="delete_task" value="{{task.id}}">Delete</button></p>
+  {% empty %}
+  </form>
+    <p>No tasks found</p>
+  {% endfor %}
+  <p><a href="task/create">Create new task</a></p>
+  <br>
+
+  <form method="post">
+    {% csrf_token %}
+    Rename tasklist:<br>
+    <input name="name" class="form-control" type="text">
+    <button type="submit", name="rename_tasklist">Rename</button>
+    or
+    <button name="delete_tasklist">Delete tasklist</button>
+    <h3>Tasklist sharers:</h3>
+    {% for sharer in tasklist.sharers %}
+      <p>{{ sharer.username }} <button name="remove_sharer" value="{{sharer.username}}">Remove</button></p>
+    {% empty %}
+      <p>No sharers</p>
+    {% endfor %}
+    <input name="sharers" class="form-control" type="text">
+    <button type="submit", name="add_sharers">Add sharers</button>
+  </form>
+{% endblock %}

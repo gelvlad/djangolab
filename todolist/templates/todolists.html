@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Tasklists:</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for tasklist in tasklists %}
+      <p><a href="{{ tasklist.id }}"> {{ tasklist.name }} </a><button name="delete" value="{{tasklist.id}}">Delete</button></p>
+    {% empty %}
+    <p>No tasklists found</p>
+    {% endfor %}
+  </form>
+  <h2>Create tasklist</h2>
+  <form method="post">
+    {% csrf_token %}
+    Tasklist name:<br>
+    <input name="name" class="form-control" type="text">
+    <button type="submit">Create</button>
+  </form>
+{% endblock %}
